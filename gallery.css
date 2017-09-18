@@ -1,0 +1,128 @@
+ц
+.gallery {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-size: 0;
+}
+.galleryItem {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  margin: 10px;
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.galleryItem__name {
+  position: absolute;
+  content: '';
+  bottom: -50px;
+  padding: 0 10px;
+  left: 0;
+  font-family: sans-serif;
+  width: 100%;
+  height: auto;
+  opacity:0;
+  box-sizing: border-box;
+  background: rgba(0,0,0, 0.5);
+  transition: all .2s;
+  color: white;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.galleryItem:hover .galleryItem__name {
+  bottom: 0;
+  opacity: 1;
+ }
+
+.galleryItem__closeIcon {
+  position: absolute;
+  content: 'X';
+  top: -50px;
+  right: 0;
+  font-family: sans-serif;
+  width: 20px;
+  height: 20px;
+  opacity:0;
+  box-sizing: border-box;
+  background: rgba(0,0,0, 0.5);
+  transition: all .2s;
+  color: white;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.galleryItem:hover .galleryItem__closeIcon {
+  top: 0;
+  opacity: 1;
+}
+
+.galleryItem__closeIcon:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.gallery__restoreBtn {
+  color: #007bff;
+  background-color: transparent;
+  background-image: none;
+  border-color: #007bff;
+  transition: all .2s ease-in-out;
+  border-radius: .25rem;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  vertical-align: middle;
+  margin-left: 50px
+}
+
+.gallery__restoreBtn:hover{
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  cursor: pointer;
+}
+
+[hidden] { display: none; }
+
+.galleryItem-rating {
+  background: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70%;
+  height: 20px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row-reverse;
+}
+
+.galleryItem-rating__star {
+  font-size: 20px;
+  line-height: 20px;
+}
+
+
+
+.galleryItem-rating__star:hover {
+  cursor: pointer;
+  color: orange;
+  
+}
+
+.galleryItem-rating__star:hover ~ .galleryItem-rating__star {
+  color: orange;
+} 
+
+.star--hovered {
+  color: orange;
+}
