@@ -1,8 +1,8 @@
-ц
 .gallery {
   max-width: 1200px;
   margin: 0 auto;
   font-size: 0;
+  text-align: center;
 }
 .galleryItem {
   display: inline-block;

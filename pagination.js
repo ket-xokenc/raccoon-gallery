@@ -1,5 +1,4 @@
 const IMGPERPAGE = 3;
-var currentPage= 1;
 
 function getNumberOfPages() {
   return  Math.ceil(IMAGES.length/IMGPERPAGE);
@@ -41,40 +40,35 @@ function printPagination() {
 // renderGallery(IMAGES, IMGPERPAGE);
 printPagination(IMGPERPAGE, IMAGES);
 
-document.querySelector(".pagination").addEventListener('click', addActiveClassToPageLink);
+// let arrayPageLinks = document.querySelector(".pagination a:not(:first-child):not(:last-child)");
+// for() {}
+// document.querySelector(".pagination").addEventListener('click', addActiveClassToPageLink);
 
-function addActiveClassToPageLink(event) {
-  event.target.classList.toggle('active');
-}
-
-function renderGallery(IMAGES, IMGPERPAGE) {
-  for (let i = 0; i < IMGPERPAGE; i++) {
-    let galleryItem = document.createElement('div');
-    galleryItem.className = 'galleryItem';
-    galleryItem.style.backgroundImage = "url('"+IMAGES[i]+"')";
-    gallery.appendChild(galleryItem);
-    
-    // image name
-    let galleryItemName = document.createElement('div');
-    galleryItem.appendChild(galleryItemName);
-    galleryItemName.className = 'galleryItem__name';
-    galleryItemName.innerHTML = IMAGES[i];
-
-    // image close icon
-    let galleryItemClose = document.createElement('div');
-    galleryItem.appendChild(galleryItemClose);
-    galleryItemClose.className = 'galleryItem__closeIcon';
-    galleryItemClose.innerHTML = "&#10006";
+function addActiveClassToPageLink() {
+  let arrayLinks = document.querySelectorAll('.pagination a:not(:first-child):not(:last-child)');
+  // console.log(arrayLinks);
+  for(let i = 0; i < arrayLinks.length; i++) {
+    if(currentPage == arrayLinks[i].textContent) {
+      arrayLinks[i].classList.add('active');
+    } else {
+      arrayLinks[i].classList.remove('active');
+    }
   }
 }
 
-function checkDisabledLinks(currentPage) {
+function checkDisabledLinks() {
   if (currentPage == 1) {
     // disabled prevbutton
-    document.querySelector('.pagination a:first-child').classList.toggle('disabled');
+    document.querySelector('.pagination a:first-child').classList.add('disabled');
   } else if (currentPage == getNumberOfPages()) {
     // disable next button
-    document.querySelector('.pagination a:last-child').classList.toggle('disabled');
+    document.querySelector('.pagination a:last-child').classList.add('disabled');
+  } else {
+    let arrayLinks = document.querySelectorAll('.pagination a');
+    for (let i = 0; i < arrayLinks.length; i++) {
+      arrayLinks[i].classList.remove('disabled');
+    }
+
   }
 }
 

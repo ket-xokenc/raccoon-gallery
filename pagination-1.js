@@ -1,6 +1,6 @@
 var pageList = new Array();
 var currentPage = 1;
-var numberPerPage = 4;
+var numberPerPage = 3;
 var events = Array.prototype.slice.call(document.querySelectorAll(".galleryItem"));
 
 // console.log(events);
@@ -32,13 +32,32 @@ function lastPage() {
 function loadList() {
   var begin = ((currentPage - 1) * numberPerPage);
   var end = begin + numberPerPage;
-  for (i = 0; i < pageList.length; i++) {
-    pageList[i].classList.add("not-visible"); // make the old list invisible
+  // console.log(events);
+  for (i = 0; i < events.length; i++) {
+    events[i].classList.add("not-visible"); // make the old list invisible
   }
   pageList = events.slice(begin, end);
   drawList();
-//   check();
+  checkDisabledLinks();
+  addActiveClassToPageLink();
 }
+
+function pagination(event) {
+  event.stopPropagation;
+
+  if(event.target != document.querySelector(".pagination a:first-child") && event.target != document.querySelector(".pagination a:last-child") && event.target != document.querySelector('.pagination')) {
+    currentPage = event.target.textContent;
+    loadList();
+  } else {
+    // console.log(event.target);
+    // event.preventDefault();
+    
+  }
+
+}
+document.querySelector(".pagination").addEventListener('click', pagination);
+
+// pagination();
 
 function drawList() {
   for (i = 0; i < pageList.length; i++) {
