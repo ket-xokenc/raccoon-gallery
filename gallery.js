@@ -29,7 +29,7 @@ const IMAGES = [
 function renderGallery(IMAGES) {
   for (let i = 0; i < IMAGES.length; i++) {
     let galleryItem = document.createElement('div');
-    galleryItem.className = 'galleryItem';
+    galleryItem.classList.add('galleryItem');
     galleryItem.style.backgroundImage = "url('"+IMAGES[i]+"')";
     gallery.appendChild(galleryItem);
     

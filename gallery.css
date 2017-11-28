@@ -126,3 +126,7 @@
 .star--hovered {
   color: orange;
 }
+
+.not-visible {
+  display: none;
+}
