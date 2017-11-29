@@ -1,14 +1,18 @@
-const IMGPERPAGE = 3;
+const NUMBERPERPAGE = 3;
+var pageImgList = new Array();
+var currentPage = 1;
+var galleryImgArray = Array.prototype.slice.call(document.querySelectorAll(".galleryItem"));
+
 
 function getNumberOfPages() {
-  return  Math.ceil(IMAGES.length/IMGPERPAGE);
+  return  Math.ceil(IMAGES.length/NUMBERPERPAGE);
 }
 
-function printPagination() {
+function printPaginationBlock() {
   let imagesQuantity = getNumberOfPages();
   let gallery = document.getElementById("gallery");
 
-  if (imagesQuantity > IMGPERPAGE) {
+  if (imagesQuantity > NUMBERPERPAGE) {
     // create centered wrapper
     let centeredBox = document.createElement('div');
     gallery.appendChild(centeredBox);
@@ -37,16 +41,10 @@ function printPagination() {
   }
 }
 
-// renderGallery(IMAGES, IMGPERPAGE);
-printPagination(IMGPERPAGE, IMAGES);
-
-// let arrayPageLinks = document.querySelector(".pagination a:not(:first-child):not(:last-child)");
-// for() {}
-// document.querySelector(".pagination").addEventListener('click', addActiveClassToPageLink);
+printPaginationBlock();
 
 function addActiveClassToPageLink() {
   let arrayLinks = document.querySelectorAll('.pagination a:not(:first-child):not(:last-child)');
-  // console.log(arrayLinks);
   for(let i = 0; i < arrayLinks.length; i++) {
     if(currentPage == arrayLinks[i].textContent) {
       arrayLinks[i].classList.add('active');
@@ -57,14 +55,21 @@ function addActiveClassToPageLink() {
 }
 
 function checkDisabledLinks() {
+  let arrayLinks = document.querySelectorAll('.pagination a');
   if (currentPage == 1) {
     // disabled prevbutton
+    for (let i = 0; i < arrayLinks.length; i++) {
+      arrayLinks[i].classList.remove('disabled');
+    }
     document.querySelector('.pagination a:first-child').classList.add('disabled');
+    
   } else if (currentPage == getNumberOfPages()) {
     // disable next button
+    for (let i = 0; i < arrayLinks.length; i++) {
+      arrayLinks[i].classList.remove('disabled');
+    }
     document.querySelector('.pagination a:last-child').classList.add('disabled');
   } else {
-    let arrayLinks = document.querySelectorAll('.pagination a');
     for (let i = 0; i < arrayLinks.length; i++) {
       arrayLinks[i].classList.remove('disabled');
     }
@@ -72,4 +77,51 @@ function checkDisabledLinks() {
   }
 }
 
-// checkDisabledLinks();
+function nextPage() {
+  currentPage += 1;
+  showPage();
+}
+
+function prevPage() {
+  currentPage -= 1;
+  showPage();
+}
+
+function showPage() {
+  var start = ((currentPage - 1) * NUMBERPERPAGE);
+  var end = start + NUMBERPERPAGE;
+  for (i = 0; i < galleryImgArray.length; i++) {
+    galleryImgArray[i].classList.add("not-visible");
+  }
+  pageImgList = galleryImgArray.slice(start, end);
+  displayImg();
+  checkDisabledLinks();
+  addActiveClassToPageLink();
+}
+
+function displayImg() {
+  for (i = 0; i < pageImgList.length; i++) {
+    pageImgList[i].classList.remove("not-visible");
+  }
+}
+
+function pagination(event) {
+  if(event.target != document.querySelector(".pagination a:first-child") && event.target != document.querySelector(".pagination a:last-child") && event.target != document.querySelector('.pagination')) {
+    currentPage = +event.target.textContent;
+    showPage();
+  }
+}
+document.querySelector(".pagination").addEventListener('click', pagination);
+
+function load() {
+  showPage();
+}
+
+var prevPageLink = document.querySelector('.pagination a:first-child');
+prevPageLink.addEventListener('click', prevPage);
+
+var nextPageLink = document.querySelector('.pagination a:last-child');
+nextPageLink.addEventListener('click', nextPage);
+
+var numberOfPages = getNumberOfPages();
+window.onload = load;
