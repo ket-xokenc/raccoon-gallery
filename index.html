@@ -7,12 +7,19 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
   <link rel="stylesheet" href="./gallery.css">
   <link rel="stylesheet" href="./pagination.css">
+    <link rel="stylesheet" href="./formUpload.css">
   <title>Gallery</title>
 </head>
 <body>
   <div id="gallery" class="gallery">
 
   </div>
+  <form class="img-upload-form">
+    <button type="submit" class="img-upload-form__btn-submit">Загрузить</button>
+    <button type="button" class="img-upload-form__btn-load">Выбрать</button>
+    <div class="img-upload-form__file-name-field">Файл не выбран</div>
+    <input type="file" accept="image/*" class="img-upload-form__hidden-input">
+  </form>
   <script src="./gallery.js"></script>
   <script src="./rating.js"></script>
   <script src="./pagination.js"></script>
