@@ -46,14 +46,14 @@ function fillStarsToChecked(event) {
   }
 }
 
-
 function addListenersToRating(){
   let ratingBlock = document.getElementsByClassName('galleryItem-rating');
   for(let i = 0; i < ratingBlock.length; i++) {
     ratingBlock[i].addEventListener('click', fillStarsToChecked);
   }
 }
-
-addRatingBlock();
-addStarsToRating();
-addListenersToRating();
+function initRating() {
+  addRatingBlock();
+  addStarsToRating();
+  addListenersToRating();
+}

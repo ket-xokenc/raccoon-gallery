@@ -1,6 +1,5 @@
 function handleFileSelect(event) {
   var files = event.target.files; // FileList object
-  // console.log(files);
   // Loop through the FileList and render image files as thumbnails.
   for (var i = 0, f; (f = files[i]); i++) {
     // Only process image files.
@@ -13,39 +12,23 @@ function handleFileSelect(event) {
     // Closure to capture the file information.
     reader.onload = (function(theFile) {
       return function(e) {
-        // Render thumbnail.
-        
-        // let gallery = document.getElementById("gallery");
-        // let galleryItem = document.createElement('div');
-        // galleryItem.classList.add('galleryItem');
-        // galleryItem.style.backgroundImage = "url('"+e.target.result+"')";
-        // gallery.appendChild(galleryItem);
-        
-        // // image name
-        // let galleryItemName = document.createElement('div');
-        // galleryItem.appendChild(galleryItemName);
-        // galleryItemName.className = 'galleryItem__name';
-        // galleryItemName.innerHTML = theFile.name;
+        imgList.unshift({
+          url: e.target.result,
+          title: theFile.name
+        });
 
-        // // image close icon
-        // let galleryItemClose = document.createElement('div');
-        // galleryItem.appendChild(galleryItemClose);
-        // galleryItemClose.className = 'galleryItem__closeIcon';
-        // galleryItemClose.innerHTML = "&#10006";
+        // delete old gallery and create new
+        (function() {
+          let gallery = document.getElementById("gallery");
+          let galleryChildNodes = Array.prototype.slice.call(
+            gallery.childNodes
+          );
+          galleryChildNodes.forEach(function(child) {
+            gallery.removeChild(child);
+          });
+        })();
 
-        IMAGES.unshift(e.target.result);
-        // console.log(IMAGES);
-        // load;
-        // renderGallery(IMAGES);
-        // console.log(e.target.result);
-        // var span = document.createElement("span");
-        // span.innerHTML = [
-        //   '<img class="thumb" src="',
-        //   e.target.result,
-        //   '" title="',
-        //   escape(theFile.name),
-        //   '"/>'
-        // ].join("");
+        initGallery();
       };
     })(f);
 
@@ -55,5 +38,20 @@ function handleFileSelect(event) {
 }
 
 document
-  .querySelector('.img-upload-form__hidden-input')
+  .querySelector(".img-upload-form__hidden-input")
   .addEventListener("change", handleFileSelect, false);
+
+function initGallery() {
+  renderGallery();
+
+  // listeners for delete and restore elements
+  let gallery = document.getElementById("gallery");
+  gallery.addEventListener("click", hideElement);
+  gallery.addEventListener("click", showRestoreBtn);
+  gallery.addEventListener("click", hideRestoreBtn);
+
+  initRating();
+  initPagination();
+  showPage();
+}
+window.onload = initGallery;

@@ -24,15 +24,11 @@ const IMAGES = [
   'https://enot-doma.ru/wp-content/uploads/2017/02/21.02.2017_03.jpg'
 ];
 
-// const gallery = document.getElementById('gallery');
-
-
-
-function prepareImgList(imgList) {
+function prepareImgList(imgUrlList) {
   let imgObgList = new Array();
 
 // create Array of Objects with fields url and title
-  imgObgList = imgList.map(function(element) {
+  imgObgList = imgUrlList.map(function(element) {
     return new Object({url: element, title : findImgName(element)});
   });
 
@@ -45,35 +41,33 @@ function prepareImgList(imgList) {
   return imgObgList;
 }
 
+var imgList = prepareImgList(IMAGES);
+
 function renderGallery() {
-  for (let i = 0; i < IMAGES.length; i++) {
+  imgList.forEach(function(element) {
+  //  console.log(element);
     let galleryItem = document.createElement('div');
     galleryItem.classList.add('galleryItem');
-    galleryItem.style.backgroundImage = "url('"+IMAGES[i]+"')";
+    galleryItem.style.backgroundImage = "url('"+element.url+"')";
     gallery.appendChild(galleryItem);
-    
     // image name
     let galleryItemName = document.createElement('div');
     galleryItem.appendChild(galleryItemName);
     galleryItemName.className = 'galleryItem__name';
-    galleryItemName.innerHTML = IMAGES[i];
+    galleryItemName.innerHTML = element.title;
 
     // image close icon
     let galleryItemClose = document.createElement('div');
     galleryItem.appendChild(galleryItemClose);
     galleryItemClose.className = 'galleryItem__closeIcon';
     galleryItemClose.innerHTML = "&#10006";
-  }
+  });
 }
-
-renderGallery();
 
 function hideElement(event) {
   if (!event.target.classList.contains('galleryItem__closeIcon')) return;
   event.target.parentNode.hidden = true;
 }
-
-
 
 function showElement(event) {
  let galleryItemList = document.getElementsByClassName('galleryItem');
@@ -84,19 +78,11 @@ function showElement(event) {
   }
 }
 
-function changeGallery() {
-  const galleryItemClose = document.getElementsByClassName("galleryItem__closeIcon");
-  const gallery = document.getElementById('gallery');
-  gallery.addEventListener('click', hideElement);
-  gallery.addEventListener('click', showRestoreBtn);
-  gallery.addEventListener('click', hideRestoreBtn);
-  
-}
 function showRestoreBtn() {
   let galleryItemList = document.getElementsByClassName('galleryItem');
   for(let i = 0; i < galleryItemList.length; i++) {
     if(galleryItemList[i].hidden === true) {
-      if(document.getElementsByTagName('button').length == 0) {
+      if(document.querySelectorAll('.gallery__restoreBtn').length == 0) {
         let galleryRestoreBtn = document.createElement('button');
         gallery.appendChild(galleryRestoreBtn);
         galleryRestoreBtn.className = 'gallery__restoreBtn';
@@ -113,4 +99,3 @@ function hideRestoreBtn(event) {
   }
 }
 
-changeGallery();
