@@ -26,7 +26,26 @@ const IMAGES = [
 
 // const gallery = document.getElementById('gallery');
 
-function renderGallery(IMAGES) {
+
+
+function prepareImgList(imgList) {
+  let imgObgList = new Array();
+
+// create Array of Objects with fields url and title
+  imgObgList = imgList.map(function(element) {
+    return new Object({url: element, title : findImgName(element)});
+  });
+
+// find image name in url
+  function findImgName(str) {
+    let start = str.lastIndexOf('/') + 1;
+    let end = str.length;
+    return str.substring(start, end);
+  }
+  return imgObgList;
+}
+
+function renderGallery() {
   for (let i = 0; i < IMAGES.length; i++) {
     let galleryItem = document.createElement('div');
     galleryItem.classList.add('galleryItem');
@@ -47,7 +66,7 @@ function renderGallery(IMAGES) {
   }
 }
 
-renderGallery(IMAGES);
+renderGallery();
 
 function hideElement(event) {
   if (!event.target.classList.contains('galleryItem__closeIcon')) return;
