@@ -1,13 +1,9 @@
 const NUMBERPERPAGE = 3;
 var pageImgList = new Array();
 var currentPage = 1;
-var galleryImgArray = Array.prototype.slice.call(
-  document.querySelectorAll(".galleryItem")
-);
-// console.log(typeof(galleryImgArray));
 
 function getNumberOfPages() {
-  return Math.ceil(IMAGES.length / NUMBERPERPAGE);
+  return Math.ceil(imgList.length / NUMBERPERPAGE);
 }
 
 function printPaginationBlock() {
@@ -42,8 +38,6 @@ function printPaginationBlock() {
     paginationBox.appendChild(nextPageLink);
   }
 }
-
-printPaginationBlock();
 
 function addActiveClassToPageLink() {
   let arrayLinks = document.querySelectorAll(
@@ -94,6 +88,9 @@ function prevPage() {
 }
 
 function showPage() {
+  var galleryImgArray = Array.prototype.slice.call(
+    document.querySelectorAll(".galleryItem")
+  );
   var start = (currentPage - 1) * NUMBERPERPAGE;
   var end = start + NUMBERPERPAGE;
   for (i = 0; i < galleryImgArray.length; i++) {
@@ -112,25 +109,29 @@ function displayImg() {
 }
 
 function pagination(event) {
-  let arrayLinks = Array.prototype.slice.call(document.querySelectorAll(".pagination a:not(:first-child):not(:last-child)"));
+  let arrayLinks = Array.prototype.slice.call(
+    document.querySelectorAll(
+      ".pagination a:not(:first-child):not(:last-child)"
+    )
+  );
   arrayLinks.forEach(function(item, i, arrayLinks) {
-    if(item == event.target) {
+    if (item == event.target) {
       currentPage = +event.target.textContent;
       showPage();
-    };
-});
-}
-document.querySelector(".pagination").addEventListener("click", pagination);
-
-function load() {
-  showPage();
+    }
+  });
 }
 
-var prevPageLink = document.querySelector(".pagination a:first-child");
-prevPageLink.addEventListener("click", prevPage);
+function initPagination() {
+  printPaginationBlock();
+  document.querySelector(".pagination").addEventListener("click", pagination);
 
-var nextPageLink = document.querySelector(".pagination a:last-child");
-nextPageLink.addEventListener("click", nextPage);
+  let prevPageLink = document.querySelector(".pagination a:first-child");
+  prevPageLink.addEventListener("click", prevPage);
 
-var numberOfPages = getNumberOfPages();
-window.onload = load;
+  let nextPageLink = document.querySelector(".pagination a:last-child");
+  nextPageLink.addEventListener("click", nextPage);
+}
+
+// var numberOfPages = getNumberOfPages();
+

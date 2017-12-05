@@ -1,3 +1,7 @@
+body {
+  text-align: center;
+}
+
 .gallery {
   max-width: 1200px;
   margin: 0 auto;
@@ -14,6 +18,10 @@
   position: relative;
   overflow: hidden;
   vertical-align: middle;
+}
+
+.galleryItem:hover {
+  cursor: pointer;
 }
 
 .galleryItem__name {
@@ -82,7 +90,7 @@
   font-size: 1rem;
   line-height: 1.25;
   vertical-align: middle;
-  margin-left: 50px
+  margin-top: 50px
 }
 
 .gallery__restoreBtn:hover{
@@ -129,4 +137,95 @@
 
 .not-visible {
   display: none;
+}
+
+.bigImg {
+  display: block;
+  max-width: 85%;
+  height: auto;
+  max-height: 90vh;
+  margin: 0 auto;
+
+  // position: absolute;
+
+}
+
+.modalWindow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: black;
+  opacity: 0.8;
+  height: 100vh;
+  width: 100%;
+}
+
+.modalImgBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flipping-arrow {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+}
+
+.flipping-arrow:hover {
+  cursor: pointer;
+  animation: flipping-arrow 1.3s;
+  animation-iteration-count: infinite;
+}
+
+.left-arrow {
+  background: url("./left-arrow.svg");
+  left: 10px;
+  top: 49vh;
+  background-size: cover;
+}
+
+.right-arrow {
+  background: url("./right-arrow.svg");
+  background-size: cover;
+  top: 49vh;
+  right: 10px;
+}
+
+@keyframes flipping-arrow {
+  10% {
+    transform: translate(-5px);
+  }
+  20% {
+    transform: translate(0px);
+  }
+  30% {
+    transform: translate(-3px);
+  }
+  40% {
+    transform: translate(0px);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  background: url("./close-btn.svg");
+  background-size: cover;
+}
+
+.close-btn:hover {
+  cursor: pointer;
+  background: url('./close-btn-hover.svg');
+  background-size: cover;
 }
