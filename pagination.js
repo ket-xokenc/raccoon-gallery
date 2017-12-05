@@ -2,8 +2,6 @@ const NUMBERPERPAGE = 3;
 var pageImgList = new Array();
 var currentPage = 1;
 
-// console.log(typeof(galleryImgArray));
-
 function getNumberOfPages() {
   return Math.ceil(imgList.length / NUMBERPERPAGE);
 }
@@ -91,7 +89,8 @@ function prevPage() {
 
 function showPage() {
   var galleryImgArray = Array.prototype.slice.call(
-  document.querySelectorAll(".galleryItem"));
+    document.querySelectorAll(".galleryItem")
+  );
   var start = (currentPage - 1) * NUMBERPERPAGE;
   var end = start + NUMBERPERPAGE;
   for (i = 0; i < galleryImgArray.length; i++) {
@@ -110,25 +109,29 @@ function displayImg() {
 }
 
 function pagination(event) {
-  let arrayLinks = Array.prototype.slice.call(document.querySelectorAll(".pagination a:not(:first-child):not(:last-child)"));
+  let arrayLinks = Array.prototype.slice.call(
+    document.querySelectorAll(
+      ".pagination a:not(:first-child):not(:last-child)"
+    )
+  );
   arrayLinks.forEach(function(item, i, arrayLinks) {
-    if(item == event.target) {
+    if (item == event.target) {
       currentPage = +event.target.textContent;
       showPage();
-    };
-});
+    }
+  });
 }
 
 function initPagination() {
-  printPaginationBlock();  
+  printPaginationBlock();
   document.querySelector(".pagination").addEventListener("click", pagination);
 
-  var prevPageLink = document.querySelector(".pagination a:first-child");
+  let prevPageLink = document.querySelector(".pagination a:first-child");
   prevPageLink.addEventListener("click", prevPage);
 
-  var nextPageLink = document.querySelector(".pagination a:last-child");
+  let nextPageLink = document.querySelector(".pagination a:last-child");
   nextPageLink.addEventListener("click", nextPage);
 }
 
-var numberOfPages = getNumberOfPages();
-// window.onload = load;
+// var numberOfPages = getNumberOfPages();
+
